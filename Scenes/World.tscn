@@ -1,8 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnycbiem36d63"]
+[gd_scene load_steps=12 format=3 uid="uid://dnycbiem36d63"]
 
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="1_7yndk"]
 [ext_resource type="Script" path="res://Scripts/Truppa.gd" id="2_m0wob"]
 [ext_resource type="Texture2D" uid="uid://inka45pyk111" path="res://icon.svg" id="3_8pm2b"]
+[ext_resource type="Texture2D" uid="uid://b74u6v0yn2fwh" path="res://Resources/Images/Spada.png" id="4_evlwh"]
+[ext_resource type="Script" path="res://Scripts/Resource/Arma.gd" id="4_gfavc"]
+[ext_resource type="Texture2D" uid="uid://x370hneyrfwj" path="res://Resources/Images/Soldato.png" id="6_8l572"]
+[ext_resource type="Texture2D" uid="uid://c5e2ap1heaexm" path="res://Resources/Images/Pstola.png" id="7_it45y"]
+[ext_resource type="Script" path="res://Scripts/Resource/Bullet.gd" id="9_oq7xw"]
+
+[sub_resource type="Resource" id="Resource_hnsb0"]
+script = ExtResource("4_gfavc")
+Type = "Mischia"
+Sprite = ExtResource("4_evlwh")
+Damage = 25
+Countdown = 1.0
+
+[sub_resource type="Resource" id="Resource_soy5h"]
+script = ExtResource("9_oq7xw")
+color = Color(1, 1, 1, 1)
+speed = 200
+Size = Vector2(10, 10)
+Damage = 10
+
+[sub_resource type="Resource" id="Resource_s2di2"]
+script = ExtResource("4_gfavc")
+Type = "Distanza"
+Sprite = ExtResource("7_it45y")
+Damage = 1
+Countdown = 1.0
+bullet = SubResource("Resource_soy5h")
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,10 +40,402 @@ script = ExtResource("1_7yndk")
 script = ExtResource("2_m0wob")
 texture = ExtResource("3_8pm2b")
 HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa11" type="CharacterBody2D" parent="."]
+position = Vector2(-2, 82)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa12" type="CharacterBody2D" parent="."]
+position = Vector2(149, 25)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa13" type="CharacterBody2D" parent="."]
+position = Vector2(81, -52)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa14" type="CharacterBody2D" parent="."]
+position = Vector2(-37, -88)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa15" type="CharacterBody2D" parent="."]
+position = Vector2(-92, 19)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa16" type="CharacterBody2D" parent="."]
+position = Vector2(-94, 128)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa17" type="CharacterBody2D" parent="."]
+position = Vector2(-138, -88)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa18" type="CharacterBody2D" parent="."]
+position = Vector2(104, -202)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa19" type="CharacterBody2D" parent="."]
+position = Vector2(25, 394)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa20" type="CharacterBody2D" parent="."]
+position = Vector2(23, 476)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa21" type="CharacterBody2D" parent="."]
+position = Vector2(174, 419)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa22" type="CharacterBody2D" parent="."]
+position = Vector2(106, 342)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa23" type="CharacterBody2D" parent="."]
+position = Vector2(-12, 306)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa24" type="CharacterBody2D" parent="."]
+position = Vector2(-67, 413)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa25" type="CharacterBody2D" parent="."]
+position = Vector2(-69, 522)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa26" type="CharacterBody2D" parent="."]
+position = Vector2(-113, 306)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa27" type="CharacterBody2D" parent="."]
+position = Vector2(129, 192)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa28" type="CharacterBody2D" parent="."]
+position = Vector2(-44, -351)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa29" type="CharacterBody2D" parent="."]
+position = Vector2(-46, -269)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa30" type="CharacterBody2D" parent="."]
+position = Vector2(105, -326)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa31" type="CharacterBody2D" parent="."]
+position = Vector2(37, -403)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa32" type="CharacterBody2D" parent="."]
+position = Vector2(-81, -439)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa33" type="CharacterBody2D" parent="."]
+position = Vector2(-136, -332)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa34" type="CharacterBody2D" parent="."]
+position = Vector2(-138, -223)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa35" type="CharacterBody2D" parent="."]
+position = Vector2(-182, -439)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
+
+[node name="Truppa36" type="CharacterBody2D" parent="."]
+position = Vector2(60, -553)
+script = ExtResource("2_m0wob")
+texture = ExtResource("3_8pm2b")
+HP = 100
+arma = SubResource("Resource_hnsb0")
 
 [node name="Truppa2" type="CharacterBody2D" parent="."]
 position = Vector2(988, -16)
 script = ExtResource("2_m0wob")
-texture = ExtResource("3_8pm2b")
+texture = ExtResource("6_8l572")
 HP = 100
 SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa3" type="CharacterBody2D" parent="."]
+position = Vector2(1090, -16)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa4" type="CharacterBody2D" parent="."]
+position = Vector2(867, -59)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa5" type="CharacterBody2D" parent="."]
+position = Vector2(1081, 66)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa6" type="CharacterBody2D" parent="."]
+position = Vector2(908, 62)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa7" type="CharacterBody2D" parent="."]
+position = Vector2(1095, -116)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa8" type="CharacterBody2D" parent="."]
+position = Vector2(993, 157)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa9" type="CharacterBody2D" parent="."]
+position = Vector2(927, -157)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa10" type="CharacterBody2D" parent="."]
+position = Vector2(855, 164)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa37" type="CharacterBody2D" parent="."]
+position = Vector2(981, -432)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa38" type="CharacterBody2D" parent="."]
+position = Vector2(1083, -432)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa39" type="CharacterBody2D" parent="."]
+position = Vector2(860, -475)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa40" type="CharacterBody2D" parent="."]
+position = Vector2(1074, -350)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa41" type="CharacterBody2D" parent="."]
+position = Vector2(901, -354)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa42" type="CharacterBody2D" parent="."]
+position = Vector2(1088, -532)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa43" type="CharacterBody2D" parent="."]
+position = Vector2(986, -259)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa44" type="CharacterBody2D" parent="."]
+position = Vector2(920, -573)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa45" type="CharacterBody2D" parent="."]
+position = Vector2(848, -252)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa46" type="CharacterBody2D" parent="."]
+position = Vector2(969, 410)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa47" type="CharacterBody2D" parent="."]
+position = Vector2(1071, 410)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa48" type="CharacterBody2D" parent="."]
+position = Vector2(848, 367)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa49" type="CharacterBody2D" parent="."]
+position = Vector2(1062, 492)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa50" type="CharacterBody2D" parent="."]
+position = Vector2(889, 488)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa51" type="CharacterBody2D" parent="."]
+position = Vector2(1076, 310)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa52" type="CharacterBody2D" parent="."]
+position = Vector2(974, 583)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa53" type="CharacterBody2D" parent="."]
+position = Vector2(908, 269)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+
+[node name="Truppa54" type="CharacterBody2D" parent="."]
+position = Vector2(836, 590)
+script = ExtResource("2_m0wob")
+texture = ExtResource("6_8l572")
+HP = 100
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
