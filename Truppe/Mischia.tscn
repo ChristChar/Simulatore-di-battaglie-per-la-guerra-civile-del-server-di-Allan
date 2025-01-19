@@ -9,12 +9,12 @@
 script = ExtResource("4_qbsox")
 Type = "Mischia"
 Sprite = ExtResource("3_88qqb")
-Damage = 20
+Damage = 17
 Countdown = 0.75
 
 [node name="Truppa" type="CharacterBody2D"]
 script = ExtResource("1_ojd3b")
 texture = ExtResource("2_5cwr0")
 HP = 100
-Speed = 200.0
+Speed = 275.0
 arma = SubResource("Resource_hnsb0")

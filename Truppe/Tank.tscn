@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3e3ubs6rxom2"]
+
+[ext_resource type="Script" path="res://Scripts/Truppa.gd" id="1_u1twu"]
+[ext_resource type="Texture2D" uid="uid://b4iqdy0i1jkgk" path="res://Resources/Images/Tank.png" id="2_sxcfd"]
+[ext_resource type="Script" path="res://Scripts/Resource/Bullet.gd" id="4_ptkfv"]
+[ext_resource type="Script" path="res://Scripts/Resource/Arma.gd" id="5_15th3"]
+
+[sub_resource type="Resource" id="Resource_soy5h"]
+script = ExtResource("4_ptkfv")
+color = Color(1, 1, 1, 1)
+speed = 1500
+Size = Vector2(50, 50)
+Damage = 100
+Penetraione = 5
+
+[sub_resource type="Resource" id="Resource_s2di2"]
+script = ExtResource("5_15th3")
+Type = "Distanza"
+Damage = 50
+Countdown = 5.0
+bullet = SubResource("Resource_soy5h")
+
+[node name="Truppa44" type="CharacterBody2D"]
+position = Vector2(920, -573)
+script = ExtResource("1_u1twu")
+Movment_when_terget = "Fermo"
+texture = ExtResource("2_sxcfd")
+HP = 500
+Speed = 50.0
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+vision_range = 750.0

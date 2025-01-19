@@ -5,8 +5,10 @@ var Progress: ProgressBar
 var Target: Truppa
 var Attack_countdown = 0.0
 var Area: Area2D
+var VisionArea: Area2D
 var HPPivot: Node2D
 var Direction = 0
+var raycasts: Array[RayCast2D]
 
 @export_enum("Insegui", "Fermo", "Avanti","Causale") var Movment_when_terget: String = "Insegui"
 @export_enum("Fermo", "Avanti","Causale") var Movment_when_not_terget: String = "Avanti"
@@ -16,7 +18,6 @@ var Direction = 0
 @export var SquadraRossa: bool
 @export var arma: Arma
 @export var vision_range: float = 1000.0  # Distanza massima per rilevare bersagli
-@export var min_distance: float = 50.0  # Distanza minima tra le truppe
 
 func _ready():
 	randomize()
@@ -57,6 +58,17 @@ func _ready():
 			Arma_sprite.texture = arma.Sprite
 			Arma_sprite.position = Vector2(0, Size.y * 0.3)
 			add_child(Arma_sprite)
+	VisionArea = Area2D.new()
+	var AreaCollision2 = CollisionShape2D.new()
+	AreaCollision2.shape = Shape.duplicate()
+	VisionArea.add_child(AreaCollision2)
+	VisionArea.position.x += Size.x / 2
+	add_child(VisionArea)
+	for i in range(7):
+		var raycast = RayCast2D.new()
+		raycast.target_position = Vector2(200,10 * (i- 4))
+		raycasts.append(raycast)
+		add_child(raycast)
 	Find_Target()
 
 func Find_Target():
@@ -95,16 +107,17 @@ func _process(delta):
 	
 	if Is_target_valid():
 		Direction = global_position.angle_to_point(Target.global_position)
-		for body in Area.get_overlapping_bodies():
-			if body is Truppa and body.SquadraRossa != SquadraRossa:
-				Attack(body)
+		if arma and arma.Type == "Mischia":
+			for body in Area.get_overlapping_bodies():
+				if body is Truppa and body.SquadraRossa != SquadraRossa:
+					Attack(body)
 		
 		if arma and arma.Type == "Distanza":
 			if Attack_countdown <= 0:
 				var NewBullet = BulletBody.new()
 				NewBullet.global_position = global_position
 				NewBullet.Direction = angle_to_vector(Direction)
-				NewBullet.Owner = self
+				NewBullet.Owner = SquadraRossa
 				NewBullet.data = arma.bullet
 				get_parent().add_child(NewBullet)
 				Attack_countdown = arma.Countdown
@@ -130,20 +143,36 @@ func _physics_process(delta):
 	else:
 		Move(Movment_when_not_terget, delta)
 	move_and_slide()
-	
+
+func Raycast_check():
+	for raycast in raycasts:
+		if raycast.is_colliding():
+			var collision_normal = raycast.get_collision_normal()
+			var new_direction = velocity.bounce(collision_normal)
+			Direction = new_direction.angle()
+			return new_direction.normalized()
+	return Vector2.ZERO
+
+
 func Move(Move_type:String, delta: float):
 	match  Move_type:
 		"Insegui":
 			var direction = Target.global_position - global_position
 			direction = direction.normalized()
 			direction = direction.normalized()
-			velocity = direction * Speed
+			var Raycast = Raycast_check()
+			if Raycast > Vector2.ZERO:
+				velocity = Raycast * Speed
+			else: 
+				velocity = direction * Speed
 		"Avanti":
 			Direction = deg_to_rad(180) if SquadraRossa else 0
+			Raycast_check()
 			velocity = (Vector2(-1,0) if SquadraRossa else Vector2(1,0)) * Speed
 		"Casuale":
 			if randf() < delta:
 				Direction += randf_range(-0.2,0.2)
+			Raycast_check()
 			velocity = angle_to_vector(Direction) * Speed
 		"Fermo":
 			velocity = Vector2.ZERO

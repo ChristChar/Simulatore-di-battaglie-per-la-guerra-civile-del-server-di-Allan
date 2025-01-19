@@ -3,7 +3,7 @@ class_name BulletBody
 
 @export var data: BulletData
 var Direction: Vector2 = Vector2.ZERO
-var Owner: Truppa
+var Owner: bool
 var Penetraione: int
 var Not_valid_guys: Array[Truppa] = []
 # Called when the node enters the scene tree for the first time.
@@ -26,7 +26,7 @@ func _process(delta):
 	for body in get_overlapping_bodies():
 		if body is Truppa:
 			if is_instance_valid(body):
-				if body.SquadraRossa != Owner.SquadraRossa and not body in Not_valid_guys:
+				if body.SquadraRossa != Owner and not body in Not_valid_guys:
 					body.HP -= data.Damage
 					Penetraione -= 1
 					Not_valid_guys.append(body)

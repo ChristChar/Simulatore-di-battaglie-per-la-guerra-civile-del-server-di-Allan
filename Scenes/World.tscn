@@ -1,8 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnycbiem36d63"]
+[gd_scene load_steps=9 format=3 uid="uid://dnycbiem36d63"]
 
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="1_7yndk"]
 [ext_resource type="PackedScene" uid="uid://bdukd17ol2j1n" path="res://Truppe/Pistola.tscn" id="2_xqfj8"]
 [ext_resource type="PackedScene" uid="uid://bm5lpg4coy2d3" path="res://Truppe/Mischia.tscn" id="3_jk021"]
+[ext_resource type="Texture2D" uid="uid://bqg8inpgboi5" path="res://Resources/Images/Grass.png" id="4_blcm6"]
+[ext_resource type="Script" path="res://Scripts/Map.gd" id="5_uqrsu"]
+[ext_resource type="PackedScene" uid="uid://c3e3ubs6rxom2" path="res://Truppe/Tank.tscn" id="6_2g45u"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sdsrj"]
+texture = ExtResource("4_blcm6")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tnphp"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_sdsrj")
 
 [node name="Node2D" type="Node2D"]
 
@@ -10,37 +22,226 @@
 script = ExtResource("1_7yndk")
 
 [node name="Truppa44" parent="." instance=ExtResource("2_xqfj8")]
-position = Vector2(1015, -572)
+position = Vector2(2882, -600)
 
 [node name="Truppa45" parent="." instance=ExtResource("2_xqfj8")]
-position = Vector2(1213, -401)
+position = Vector2(3080, -429)
 
 [node name="Truppa46" parent="." instance=ExtResource("2_xqfj8")]
-position = Vector2(786, -705)
+position = Vector2(2653, -733)
 
 [node name="Truppa47" parent="." instance=ExtResource("2_xqfj8")]
-position = Vector2(1138, -700)
+position = Vector2(3005, -728)
 
 [node name="Truppa48" parent="." instance=ExtResource("2_xqfj8")]
-position = Vector2(1336, -529)
+position = Vector2(3203, -557)
 
 [node name="Truppa49" parent="." instance=ExtResource("2_xqfj8")]
-position = Vector2(909, -833)
+position = Vector2(2776, -861)
+
+[node name="Truppa50" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(2825, 5)
+
+[node name="Truppa51" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(3023, 176)
+
+[node name="Truppa52" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(2596, -128)
+
+[node name="Truppa53" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(2948, -123)
+
+[node name="Truppa54" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(3146, 48)
+
+[node name="Truppa55" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(2719, -256)
+
+[node name="Truppa56" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(2774, 701)
+
+[node name="Truppa57" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(2972, 872)
+
+[node name="Truppa58" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(2545, 568)
+
+[node name="Truppa59" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(2897, 573)
+
+[node name="Truppa60" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(3095, 744)
+
+[node name="Truppa61" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(2668, 440)
+
+[node name="Truppa63" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4491, -705)
+SquadraRossa = false
+
+[node name="Truppa64" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4293, -534)
+SquadraRossa = false
+
+[node name="Truppa65" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4720, -838)
+SquadraRossa = false
+
+[node name="Truppa66" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4368, -833)
+SquadraRossa = false
+
+[node name="Truppa67" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4170, -662)
+SquadraRossa = false
+
+[node name="Truppa68" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4597, -966)
+SquadraRossa = false
+
+[node name="Truppa69" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4548, -100)
+SquadraRossa = false
+
+[node name="Truppa70" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4350, 71)
+SquadraRossa = false
+
+[node name="Truppa71" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4777, -233)
+SquadraRossa = false
+
+[node name="Truppa72" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4425, -228)
+SquadraRossa = false
+
+[node name="Truppa73" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4227, -57)
+SquadraRossa = false
+
+[node name="Truppa74" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4654, -361)
+SquadraRossa = false
+
+[node name="Truppa75" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4599, 596)
+SquadraRossa = false
+
+[node name="Truppa76" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4401, 767)
+SquadraRossa = false
+
+[node name="Truppa77" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4828, 463)
+SquadraRossa = false
+
+[node name="Truppa78" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4476, 468)
+SquadraRossa = false
+
+[node name="Truppa79" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4278, 639)
+SquadraRossa = false
+
+[node name="Truppa80" parent="." instance=ExtResource("2_xqfj8")]
+position = Vector2(-4705, 335)
+SquadraRossa = false
 
 [node name="Truppa" parent="." instance=ExtResource("3_jk021")]
-position = Vector2(-1160, 44)
+position = Vector2(-3540, -688)
 
 [node name="Truppa2" parent="." instance=ExtResource("3_jk021")]
-position = Vector2(-1099, 140)
+position = Vector2(-3479, -592)
 
 [node name="Truppa3" parent="." instance=ExtResource("3_jk021")]
-position = Vector2(-1277, 119)
+position = Vector2(-3657, -613)
 
 [node name="Truppa4" parent="." instance=ExtResource("3_jk021")]
-position = Vector2(-1192, 236)
+position = Vector2(-3572, -496)
 
 [node name="Truppa5" parent="." instance=ExtResource("3_jk021")]
-position = Vector2(-1359, 201)
+position = Vector2(-3739, -531)
 
 [node name="Truppa6" parent="." instance=ExtResource("3_jk021")]
-position = Vector2(-1274, 318)
+position = Vector2(-3654, -414)
+
+[node name="Truppa7" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3536, -293)
+
+[node name="Truppa8" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3475, -197)
+
+[node name="Truppa9" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3653, -218)
+
+[node name="Truppa10" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3568, -101)
+
+[node name="Truppa11" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3735, -136)
+
+[node name="Truppa12" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3650, -19)
+
+[node name="Truppa13" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3536, 250)
+
+[node name="Truppa14" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3475, 346)
+
+[node name="Truppa15" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3653, 325)
+
+[node name="Truppa16" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3568, 442)
+
+[node name="Truppa17" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3735, 407)
+
+[node name="Truppa18" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3650, 524)
+
+[node name="Truppa19" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3831, 145)
+
+[node name="Truppa20" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3770, 241)
+
+[node name="Truppa21" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3948, 220)
+
+[node name="Truppa22" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3863, 337)
+
+[node name="Truppa23" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-4030, 302)
+
+[node name="Truppa24" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3945, 419)
+
+[node name="Truppa25" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3869, -359)
+
+[node name="Truppa26" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3986, -284)
+
+[node name="Truppa27" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3901, -167)
+
+[node name="Truppa28" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-4068, -202)
+
+[node name="Truppa29" parent="." instance=ExtResource("3_jk021")]
+position = Vector2(-3983, -85)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+z_index = -2
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_tnphp")
+script = ExtResource("5_uqrsu")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(-8265, -4455)
+
+[node name="Truppa62" parent="." instance=ExtResource("6_2g45u")]
+position = Vector2(2039, -91)
