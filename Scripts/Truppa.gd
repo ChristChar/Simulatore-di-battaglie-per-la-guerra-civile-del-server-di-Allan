@@ -8,12 +8,14 @@ var Area: Area2D
 var HPPivot: Node2D
 var Direction = 0
 
+@export_enum("Insegui", "Fermo", "Avanti","Causale") var Movment_when_terget: String = "Insegui"
+@export_enum("Fermo", "Avanti","Causale") var Movment_when_not_terget: String = "Avanti"
 @export var texture: Texture2D
 @export var HP: int
 @export var Speed: float = 100.0
 @export var SquadraRossa: bool
 @export var arma: Arma
-@export var vision_range: float = 3000.0  # Distanza massima per rilevare bersagli
+@export var vision_range: float = 1000.0  # Distanza massima per rilevare bersagli
 @export var min_distance: float = 50.0  # Distanza minima tra le truppe
 
 func _ready():
@@ -62,7 +64,7 @@ func Find_Target():
 	var Truppe = get_tree().get_nodes_in_group("Truppa").duplicate()
 	var Truppe_non_valide = []
 	for truppa in Truppe:
-		if is_instance_valid(truppa) and truppa.SquadraRossa == SquadraRossa:
+		if is_instance_valid(truppa) and (truppa.SquadraRossa == SquadraRossa or global_position.distance_to(truppa.global_position) >= vision_range):
 			Truppe_non_valide.append(truppa)
 	for truppa in Truppe_non_valide:
 		Truppe.erase(truppa)
@@ -92,11 +94,12 @@ func _process(delta):
 		queue_free()
 	
 	if Is_target_valid():
+		Direction = global_position.angle_to_point(Target.global_position)
 		for body in Area.get_overlapping_bodies():
 			if body is Truppa and body.SquadraRossa != SquadraRossa:
 				Attack(body)
 		
-		if arma and arma.Type == "Distanza" and global_position.distance_to(Target.global_position) <= vision_range:
+		if arma and arma.Type == "Distanza":
 			if Attack_countdown <= 0:
 				var NewBullet = BulletBody.new()
 				NewBullet.global_position = global_position
@@ -123,15 +126,24 @@ func Is_target_valid() -> bool:
 
 func _physics_process(delta):
 	if Is_target_valid():
-		var direction = Target.global_position - global_position
-		direction = direction.normalized()
-
-		# Evita di avvicinarti troppo ad altre truppe
-		for body in Area.get_overlapping_bodies():
-			if body is Truppa and body != self and global_position.distance_to(body.global_position) < min_distance:
-				direction -= (body.global_position - global_position).normalized()
-
-		direction = direction.normalized()
-		velocity = direction * Speed
-		Direction = direction.angle()
+		Move(Movment_when_terget, delta)
+	else:
+		Move(Movment_when_not_terget, delta)
 	move_and_slide()
+	
+func Move(Move_type:String, delta: float):
+	match  Move_type:
+		"Insegui":
+			var direction = Target.global_position - global_position
+			direction = direction.normalized()
+			direction = direction.normalized()
+			velocity = direction * Speed
+		"Avanti":
+			Direction = deg_to_rad(180) if SquadraRossa else 0
+			velocity = (Vector2(-1,0) if SquadraRossa else Vector2(1,0)) * Speed
+		"Casuale":
+			if randf() < delta:
+				Direction += randf_range(-0.2,0.2)
+			velocity = angle_to_vector(Direction) * Speed
+		"Fermo":
+			velocity = Vector2.ZERO

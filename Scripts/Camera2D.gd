@@ -15,9 +15,11 @@ func _process(delta):
 		direction.y += 1
 	if Input.is_action_pressed("ui_up"):
 		direction.y -= 1
-
+	var Shift = 1
+	if Input.is_key_pressed(KEY_SHIFT):
+		Shift *= 4
 	# Movimento della telecamera
-	position += direction.normalized() * move_speed * delta
+	position += direction.normalized() * move_speed * delta * Shift
 
 	# Zoom con la rotellina del mouse
 	if Input.is_action_just_pressed("zoom_in"):
