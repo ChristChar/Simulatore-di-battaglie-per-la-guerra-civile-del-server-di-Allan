@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://k704eky7xjkr"
+path="res://.godot/imported/Ka booms.mp3-6c92a3ac360b613ac78f6b87f398845f.mp3str"
+
+[deps]
+
+source_file="res://Resources/Sounds/Ka booms.mp3"
+dest_files=["res://.godot/imported/Ka booms.mp3-6c92a3ac360b613ac78f6b87f398845f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

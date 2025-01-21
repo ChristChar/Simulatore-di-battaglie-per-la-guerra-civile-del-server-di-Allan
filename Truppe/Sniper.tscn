@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://ci2qqwjdciw7y"]
+
+[ext_resource type="Script" path="res://Scripts/Truppa.gd" id="1_poxx6"]
+[ext_resource type="Texture2D" uid="uid://x370hneyrfwj" path="res://Resources/Images/Soldato.png" id="2_etyog"]
+[ext_resource type="Texture2D" uid="uid://c5kvqgugoi1nh" path="res://Resources/Images/Sniper.png" id="3_tw5yp"]
+[ext_resource type="Script" path="res://Scripts/Resource/Bullet.gd" id="4_nvtr1"]
+[ext_resource type="Script" path="res://Scripts/Resource/Arma.gd" id="5_gmsk1"]
+
+[sub_resource type="Resource" id="Resource_soy5h"]
+script = ExtResource("4_nvtr1")
+color = Color(1, 1, 0, 1)
+speed = 2000
+Size = Vector2(15, 15)
+Damage = 25
+Penetraione = 2
+
+[sub_resource type="Resource" id="Resource_s2di2"]
+script = ExtResource("5_gmsk1")
+Type = "Distanza"
+Sprite = ExtResource("3_tw5yp")
+Damage = 25
+Countdown = 5.0
+bullet = SubResource("Resource_soy5h")
+
+[node name="Truppa44" type="CharacterBody2D"]
+position = Vector2(920, -573)
+script = ExtResource("1_poxx6")
+Movment_when_terget = "Fermo"
+Movment_when_not_terget = "Fermo"
+texture = ExtResource("2_etyog")
+HP = 100
+Speed = 0.0
+SquadraRossa = true
+arma = SubResource("Resource_s2di2")
+vision_range = 10000.0

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cygm08rx6kxpp"]
+
+[sub_resource type="Gradient" id="Gradient_076yb"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.212305, 0.212305, 0.212305, 1, 0.815546, 0.263526, 0, 1, 0.687409, 0.426814, 0.00494592, 1)
+
+[node name="Explosion" type="CPUParticles2D"]
+amount = 100
+spread = 180.0
+gravity = Vector2(0, 490)
+initial_velocity_min = 200.0
+initial_velocity_max = 500.0
+scale_amount_min = 10.0
+scale_amount_max = 100.0
+color_ramp = SubResource("Gradient_076yb")

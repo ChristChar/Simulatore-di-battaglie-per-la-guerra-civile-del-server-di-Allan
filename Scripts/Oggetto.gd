@@ -1,9 +1,8 @@
 extends StaticBody2D
 class_name Oggetto
 
-@export var texture: Texture2D
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _init(texture):
 	var Size = texture.get_size()
 	var Sprite = Sprite2D.new()
 	Sprite.texture = texture
@@ -13,8 +12,9 @@ func _ready():
 	var Collision = CollisionShape2D.new()
 	Collision.shape = Shape
 	Collision.position.y = Size.y / 4
+	Collision.name = "E"
 	add_child(Collision)
-	z_index = 2
+	z_index = 20
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

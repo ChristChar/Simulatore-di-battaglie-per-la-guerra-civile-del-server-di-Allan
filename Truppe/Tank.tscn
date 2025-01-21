@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_soy5h"]
 script = ExtResource("4_ptkfv")
-color = Color(1, 1, 1, 1)
+color = Color(0, 0, 0, 1)
 speed = 1500
 Size = Vector2(50, 50)
 Damage = 100
@@ -29,4 +29,4 @@ HP = 500
 Speed = 50.0
 SquadraRossa = true
 arma = SubResource("Resource_s2di2")
-vision_range = 750.0
+vision_range = 1500.0

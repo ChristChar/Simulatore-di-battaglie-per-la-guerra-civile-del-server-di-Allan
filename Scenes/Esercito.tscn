@@ -1,0 +1,206 @@
+[gd_scene load_steps=7 format=3 uid="uid://cigbt242gbl5e"]
+
+[ext_resource type="PackedScene" uid="uid://bdukd17ol2j1n" path="res://Truppe/Pistola.tscn" id="1_s1k5v"]
+[ext_resource type="PackedScene" uid="uid://bm5lpg4coy2d3" path="res://Truppe/Mischia.tscn" id="2_6m18u"]
+[ext_resource type="PackedScene" uid="uid://c3e3ubs6rxom2" path="res://Truppe/Tank.tscn" id="3_15bih"]
+[ext_resource type="PackedScene" uid="uid://dnrr5nymes3j2" path="res://Truppe/Dinosauro.tscn" id="4_1u054"]
+[ext_resource type="PackedScene" uid="uid://diyjqd6m1bahn" path="res://Truppe/Creeper.tscn" id="5_cxho4"]
+[ext_resource type="PackedScene" uid="uid://ci2qqwjdciw7y" path="res://Truppe/Sniper.tscn" id="6_qft4t"]
+
+[node name="Esercito" type="Node2D"]
+
+[node name="Truppa44" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2882, -600)
+
+[node name="Truppa45" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(3080, -429)
+
+[node name="Truppa46" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2653, -733)
+
+[node name="Truppa47" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(3005, -728)
+
+[node name="Truppa49" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2776, -861)
+
+[node name="Truppa50" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2825, 5)
+
+[node name="Truppa51" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(3023, 176)
+
+[node name="Truppa52" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2596, -128)
+
+[node name="Truppa53" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2948, -123)
+
+[node name="Truppa55" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2719, -256)
+
+[node name="Truppa56" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2774, 701)
+
+[node name="Truppa57" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2972, 872)
+
+[node name="Truppa58" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2545, 568)
+
+[node name="Truppa59" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2897, 573)
+
+[node name="Truppa61" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(2668, 440)
+
+[node name="Truppa63" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4491, -705)
+SquadraRossa = false
+
+[node name="Truppa64" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4293, -534)
+SquadraRossa = false
+
+[node name="Truppa66" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4368, -833)
+SquadraRossa = false
+
+[node name="Truppa67" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4170, -662)
+SquadraRossa = false
+
+[node name="Truppa70" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4350, 71)
+SquadraRossa = false
+
+[node name="Truppa72" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4425, -228)
+SquadraRossa = false
+
+[node name="Truppa73" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4227, -57)
+SquadraRossa = false
+
+[node name="Truppa76" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4401, 767)
+SquadraRossa = false
+
+[node name="Truppa78" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4476, 468)
+SquadraRossa = false
+
+[node name="Truppa79" parent="." instance=ExtResource("1_s1k5v")]
+position = Vector2(-4278, 639)
+SquadraRossa = false
+
+[node name="Truppa19" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3831, 145)
+
+[node name="Truppa21" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3948, 220)
+
+[node name="Truppa22" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3863, 337)
+
+[node name="Truppa23" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-4030, 302)
+
+[node name="Truppa24" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3945, 419)
+
+[node name="Truppa25" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3869, -359)
+
+[node name="Truppa26" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3986, -284)
+
+[node name="Truppa27" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3901, -167)
+
+[node name="Truppa20" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3698, 151)
+
+[node name="Truppa30" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3730, 343)
+
+[node name="Truppa31" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3736, -353)
+
+[node name="Truppa32" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3768, -161)
+
+[node name="Truppa28" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-4068, -202)
+
+[node name="Truppa29" parent="." instance=ExtResource("2_6m18u")]
+position = Vector2(-3983, -85)
+
+[node name="Truppa62" parent="." instance=ExtResource("3_15bih")]
+position = Vector2(2039, -402)
+
+[node name="Truppa65" parent="." instance=ExtResource("3_15bih")]
+position = Vector2(2039, 335)
+
+[node name="Truppa" parent="." instance=ExtResource("4_1u054")]
+position = Vector2(-3459, -303)
+
+[node name="Truppa2" parent="." instance=ExtResource("4_1u054")]
+position = Vector2(-3473, 6)
+
+[node name="Truppa3" parent="." instance=ExtResource("4_1u054")]
+position = Vector2(-3483, 306)
+
+[node name="Creeper" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-3070, -39)
+
+[node name="Creeper2" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-3074, 105)
+
+[node name="Creeper3" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-3082, -183)
+
+[node name="Creeper4" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-2962, -39)
+
+[node name="Creeper5" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-2966, 105)
+
+[node name="Creeper6" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-2974, -183)
+
+[node name="Creeper7" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-2842, -39)
+
+[node name="Creeper8" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-2846, 105)
+
+[node name="Creeper9" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-2854, -183)
+
+[node name="Creeper10" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-2621, -48)
+
+[node name="Creeper11" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-2625, 96)
+
+[node name="Creeper12" parent="." instance=ExtResource("5_cxho4")]
+position = Vector2(-2633, -192)
+
+[node name="Truppa48" parent="." instance=ExtResource("6_qft4t")]
+position = Vector2(3867, 64)
+
+[node name="Truppa54" parent="." instance=ExtResource("6_qft4t")]
+position = Vector2(3847, 356)
+
+[node name="Truppa60" parent="." instance=ExtResource("6_qft4t")]
+position = Vector2(3842, -198)
+
+[node name="Truppa68" parent="." instance=ExtResource("6_qft4t")]
+position = Vector2(4069, 64)
+
+[node name="Truppa69" parent="." instance=ExtResource("6_qft4t")]
+position = Vector2(4049, 356)
+
+[node name="Truppa71" parent="." instance=ExtResource("6_qft4t")]
+position = Vector2(4044, -198)

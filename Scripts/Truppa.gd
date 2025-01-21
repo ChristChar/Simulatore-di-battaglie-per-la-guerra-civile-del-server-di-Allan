@@ -5,19 +5,19 @@ var Progress: ProgressBar
 var Target: Truppa
 var Attack_countdown = 0.0
 var Area: Area2D
-var VisionArea: Area2D
 var HPPivot: Node2D
 var Direction = 0
-var raycasts: Array[RayCast2D]
+var raycasts: Array[RayCast2D] = []
+var Invert = false
 
-@export_enum("Insegui", "Fermo", "Avanti","Causale") var Movment_when_terget: String = "Insegui"
-@export_enum("Fermo", "Avanti","Causale") var Movment_when_not_terget: String = "Avanti"
+@export_enum("Insegui", "Fermo", "Avanti", "Casuale") var Movment_when_terget: String = "Insegui"
+@export_enum("Fermo", "Avanti", "Casuale") var Movment_when_not_terget: String = "Avanti"
 @export var texture: Texture2D
 @export var HP: int
 @export var Speed: float = 100.0
 @export var SquadraRossa: bool
 @export var arma: Arma
-@export var vision_range: float = 1000.0  # Distanza massima per rilevare bersagli
+@export var vision_range: float = 2000.0  # Distanza massima per rilevare bersagli
 
 func _ready():
 	randomize()
@@ -37,6 +37,8 @@ func _ready():
 	else:
 		Progress.modulate = Color(0, 0.5, 1)
 		name = "Blu"
+		Direction = deg_to_rad(180)
+		rotation = deg_to_rad(180)
 	Progress.max_value = HP
 	HPPivot = Node2D.new()
 	HPPivot.add_child(Progress)
@@ -58,17 +60,13 @@ func _ready():
 			Arma_sprite.texture = arma.Sprite
 			Arma_sprite.position = Vector2(0, Size.y * 0.3)
 			add_child(Arma_sprite)
-	VisionArea = Area2D.new()
-	var AreaCollision2 = CollisionShape2D.new()
-	AreaCollision2.shape = Shape.duplicate()
-	VisionArea.add_child(AreaCollision2)
-	VisionArea.position.x += Size.x / 2
-	add_child(VisionArea)
-	for i in range(7):
+	for i in range(20):
 		var raycast = RayCast2D.new()
-		raycast.target_position = Vector2(200,10 * (i- 4))
+		raycast.target_position = Vector2(Size.x, Size.y / 16 * (i - 10))
+		raycast.enabled = true
 		raycasts.append(raycast)
 		add_child(raycast)
+	Attack_countdown = randf()
 	Find_Target()
 
 func Find_Target():
@@ -120,19 +118,19 @@ func _process(delta):
 				NewBullet.Owner = SquadraRossa
 				NewBullet.data = arma.bullet
 				get_parent().add_child(NewBullet)
-				Attack_countdown = arma.Countdown
+				Attack_countdown = arma.Countdown + randf_range(-0.3,0.3)
 	else:
 		Find_Target()
 	
 	rotation = lerp_angle(rotation, Direction, delta)
 
-func angle_to_vector(angle: float) -> Vector2: 
+func angle_to_vector(angle: float) -> Vector2:
 	return Vector2(cos(angle), sin(angle))
 
 func Attack(Target: Truppa):
 	if Attack_countdown <= 0:
 		Target.HP -= arma.Damage
-		Attack_countdown = arma.Countdown
+		Attack_countdown = arma.Countdown + randf_range(-0.3,0.3)
 
 func Is_target_valid() -> bool:
 	return Target and is_instance_valid(Target) and global_position.distance_to(Target.global_position) <= vision_range
@@ -144,35 +142,51 @@ func _physics_process(delta):
 		Move(Movment_when_not_terget, delta)
 	move_and_slide()
 
-func Raycast_check():
+func Raycast_check() -> Vector2:
+	var avoidance_vector = Vector2()
+	var collision_count = 0
+
 	for raycast in raycasts:
 		if raycast.is_colliding():
-			var collision_normal = raycast.get_collision_normal()
-			var new_direction = velocity.bounce(collision_normal)
-			Direction = new_direction.angle()
-			return new_direction.normalized()
+			var collision_point = raycast.get_collision_point()
+			var collision_vector = global_position.direction_to(collision_point)
+			avoidance_vector += collision_vector
+			collision_count += 1
+
+	if collision_count > 0:
+		avoidance_vector /= collision_count
+		avoidance_vector = avoidance_vector.rotated(deg_to_rad(90))  # Perpendicolare
+		return -avoidance_vector.normalized()
+	
 	return Vector2.ZERO
 
+#func _draw():
+	#for raycast in raycasts:
+		#if raycast.is_colliding():
+			#draw_line(raycast.global_position, raycast.get_collision_point(), Color(0,1,0))
+		#else:
+			#draw_line(raycast.global_position, raycast.global_position + raycast.target_position, Color(1,0,0))
 
-func Move(Move_type:String, delta: float):
-	match  Move_type:
+func Move(Move_type: String, delta: float):
+	match Move_type:
 		"Insegui":
 			var direction = Target.global_position - global_position
 			direction = direction.normalized()
-			direction = direction.normalized()
-			var Raycast = Raycast_check()
-			if Raycast > Vector2.ZERO:
-				velocity = Raycast * Speed
-			else: 
+			var raycast_result = Raycast_check()
+			if raycast_result != Vector2.ZERO:
+				velocity = (direction + raycast_result).normalized() * Speed
+			else:
 				velocity = direction * Speed
 		"Avanti":
 			Direction = deg_to_rad(180) if SquadraRossa else 0
-			Raycast_check()
-			velocity = (Vector2(-1,0) if SquadraRossa else Vector2(1,0)) * Speed
+			if Invert:
+				Direction -= deg_to_rad(180)
+			var raycast_result = Raycast_check()
+			velocity = (angle_to_vector(Direction) + raycast_result).normalized() * Speed
 		"Casuale":
 			if randf() < delta:
-				Direction += randf_range(-0.2,0.2)
-			Raycast_check()
-			velocity = angle_to_vector(Direction) * Speed
+				Direction += randf_range(-0.2, 0.2)
+			var raycast_result = Raycast_check()
+			velocity = (angle_to_vector(Direction) + raycast_result).normalized() * Speed
 		"Fermo":
 			velocity = Vector2.ZERO

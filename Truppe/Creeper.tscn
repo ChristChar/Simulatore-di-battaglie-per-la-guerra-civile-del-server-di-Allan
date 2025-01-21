@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://diyjqd6m1bahn"]
+
+[ext_resource type="Script" path="res://Scripts/Custom Truppe/creeper.gd" id="1_3hjq6"]
+[ext_resource type="Texture2D" uid="uid://dx5m01q1doxj0" path="res://Resources/Images/Creeper.png" id="2_l5thq"]
+
+[node name="Creeper" type="CharacterBody2D"]
+script = ExtResource("1_3hjq6")
+texture = ExtResource("2_l5thq")
+HP = 150
+Speed = 350.0
