@@ -18,3 +18,4 @@ texture = ExtResource("2_5cwr0")
 HP = 100
 Speed = 275.0
 arma = SubResource("Resource_hnsb0")
+Name = "Sword"

@@ -9,6 +9,7 @@ var HPPivot: Node2D
 var Direction = 0
 var raycasts: Array[RayCast2D] = []
 var Invert = false
+var Initialize = false
 
 @export_enum("Insegui", "Fermo", "Avanti", "Casuale") var Movment_when_terget: String = "Insegui"
 @export_enum("Fermo", "Avanti", "Casuale") var Movment_when_not_terget: String = "Avanti"
@@ -18,6 +19,8 @@ var Invert = false
 @export var SquadraRossa: bool
 @export var arma: Arma
 @export var vision_range: float = 2000.0  # Distanza massima per rilevare bersagli
+@export var Costo: int = 1
+@export var Name: String = "E"
 
 func _ready():
 	randomize()
@@ -67,7 +70,18 @@ func _ready():
 		raycasts.append(raycast)
 		add_child(raycast)
 	Attack_countdown = randf()
+	if not SquadraRossa:
+		Direction = 0
+		rotation = 0
+	Progress.value = HP
+	HPPivot.global_rotation = 0
 	Find_Target()
+	Initialize = true
+	Area.connect("input_event", _on_Area_input_event)
+
+func _on_Area_input_event(viewport, event, shape_idx):
+	if FileFunctions.IsBuilding and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		queue_free()
 
 func Find_Target():
 	# Trova tutte le truppe nemiche valide
@@ -96,33 +110,36 @@ func _sort_by_distance_and_hp(a: Truppa, b: Truppa) -> int:
 	return a.HP < b.HP  # Se le distanze sono uguali, priorità al nemico con meno HP
 
 func _process(delta):
-	Progress.value = HP
-	HPPivot.global_rotation = 0
-	Attack_countdown -= delta
-	
-	if HP <= 0:
-		queue_free()
-	
-	if Is_target_valid():
-		Direction = global_position.angle_to_point(Target.global_position)
-		if arma and arma.Type == "Mischia":
-			for body in Area.get_overlapping_bodies():
-				if body is Truppa and body.SquadraRossa != SquadraRossa:
-					Attack(body)
-		
-		if arma and arma.Type == "Distanza":
-			if Attack_countdown <= 0:
-				var NewBullet = BulletBody.new()
-				NewBullet.global_position = global_position
-				NewBullet.Direction = angle_to_vector(Direction)
-				NewBullet.Owner = SquadraRossa
-				NewBullet.data = arma.bullet
-				get_parent().add_child(NewBullet)
-				Attack_countdown = arma.Countdown + randf_range(-0.3,0.3)
+	if FileFunctions.IsBuilding:
+		pass
 	else:
-		Find_Target()
-	
-	rotation = lerp_angle(rotation, Direction, delta)
+		Progress.value = HP
+		HPPivot.global_rotation = 0
+		Attack_countdown -= delta
+		
+		if HP <= 0:
+			queue_free()
+		
+		if Is_target_valid():
+			Direction = global_position.angle_to_point(Target.global_position)
+			if arma and arma.Type == "Mischia":
+				for body in Area.get_overlapping_bodies():
+					if body is Truppa and body.SquadraRossa != SquadraRossa:
+						Attack(body)
+			
+			if arma and arma.Type == "Distanza":
+				if Attack_countdown <= 0:
+					var NewBullet = BulletBody.new()
+					NewBullet.global_position = global_position
+					NewBullet.Direction = angle_to_vector(Direction)
+					NewBullet.Owner = SquadraRossa
+					NewBullet.data = arma.bullet
+					get_parent().add_child(NewBullet)
+					Attack_countdown = arma.Countdown + randf_range(-0.3,0.3)
+		else:
+			Find_Target()
+		
+		rotation = lerp_angle(rotation, Direction, delta)
 
 func angle_to_vector(angle: float) -> Vector2:
 	return Vector2(cos(angle), sin(angle))
@@ -136,6 +153,8 @@ func Is_target_valid() -> bool:
 	return Target and is_instance_valid(Target) and global_position.distance_to(Target.global_position) <= vision_range
 
 func _physics_process(delta):
+	if FileFunctions.IsBuilding:
+		return
 	if Is_target_valid():
 		Move(Movment_when_terget, delta)
 	else:

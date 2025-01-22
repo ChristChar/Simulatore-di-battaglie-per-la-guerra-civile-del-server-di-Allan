@@ -33,3 +33,5 @@ Speed = 0.0
 SquadraRossa = true
 arma = SubResource("Resource_s2di2")
 vision_range = 10000.0
+Costo = 4
+Name = "Sniper"

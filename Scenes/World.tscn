@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnycbiem36d63"]
+[gd_scene load_steps=11 format=3 uid="uid://dnycbiem36d63"]
 
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="1_7yndk"]
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_v3yrc"]
 [ext_resource type="Texture2D" uid="uid://bqg8inpgboi5" path="res://Resources/Images/Grass.png" id="4_blcm6"]
 [ext_resource type="PackedScene" uid="uid://cigbt242gbl5e" path="res://Scenes/Esercito.tscn" id="4_jls26"]
 [ext_resource type="Script" path="res://Scripts/Map.gd" id="5_uqrsu"]
+[ext_resource type="Script" path="res://Scripts/GUI/Spawn Options.gd" id="6_0p1ba"]
+[ext_resource type="Script" path="res://Scripts/CheckIfMouseIsIn.gd" id="6_yvshh"]
+[ext_resource type="Script" path="res://Scripts/Placing.gd" id="7_crcan"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sdsrj"]
 texture = ExtResource("4_blcm6")
@@ -14,7 +18,8 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_sdsrj")
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" groups=["World"]]
+script = ExtResource("1_v3yrc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("1_7yndk")
@@ -26,3 +31,76 @@ tile_set = SubResource("TileSet_tnphp")
 script = ExtResource("5_uqrsu")
 
 [node name="Esercito" parent="." instance=ExtResource("4_jls26")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Battle GUI" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FinishButton" type="Button" parent="CanvasLayer/Battle GUI"]
+layout_mode = 0
+offset_left = 1518.0
+offset_top = 852.0
+offset_right = 1829.0
+offset_bottom = 1010.0
+theme_override_font_sizes/font_size = 80
+text = "FINISH"
+
+[node name="Build GUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Build GUI"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 20.0
+offset_right = 1888.0
+offset_bottom = 196.0
+script = ExtResource("6_yvshh")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Build GUI/Panel"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 20.0
+offset_right = 1822.0
+offset_bottom = 155.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Build GUI/Panel/ScrollContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+script = ExtResource("6_0p1ba")
+
+[node name="Button" type="Button" parent="CanvasLayer/Build GUI"]
+layout_mode = 0
+offset_left = 1518.0
+offset_top = 852.0
+offset_right = 1829.0
+offset_bottom = 1010.0
+theme_override_font_sizes/font_size = 80
+text = "START"
+script = ExtResource("6_yvshh")
+
+[node name="Clear" type="Button" parent="CanvasLayer/Build GUI"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 827.0
+offset_right = 357.0
+offset_bottom = 985.0
+theme_override_font_sizes/font_size = 80
+text = "CLEAR
+"
+script = ExtResource("6_yvshh")
+
+[node name="Place" type="Area2D" parent="." node_paths=PackedStringArray("Eserito")]
+script = ExtResource("7_crcan")
+Eserito = NodePath("../Esercito")
+
+[connection signal="pressed" from="CanvasLayer/Battle GUI/FinishButton" to="." method="_on_finish_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Build GUI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Build GUI/Clear" to="." method="_on_clear_pressed"]

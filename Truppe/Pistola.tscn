@@ -32,3 +32,5 @@ Speed = 125.0
 SquadraRossa = true
 arma = SubResource("Resource_s2di2")
 vision_range = 1750.0
+Costo = 2
+Name = "Gun"

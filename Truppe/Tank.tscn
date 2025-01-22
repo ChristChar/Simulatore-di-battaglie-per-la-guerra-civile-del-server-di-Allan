@@ -30,3 +30,5 @@ Speed = 50.0
 SquadraRossa = true
 arma = SubResource("Resource_s2di2")
 vision_range = 1500.0
+Costo = 10
+Name = "Tank"

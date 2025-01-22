@@ -2,6 +2,7 @@ extends TileMapLayer
 
 @export var Y_size: int = 100
 @export var X_size: int = 175
+
 var Textures = [
 	preload("res://Resources/Images/Albero.png"),
 	preload("res://Resources/Images/Rock.png")
@@ -26,6 +27,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	for truppa in get_tree().get_nodes_in_group("Truppa"):
-		if not truppa in MapArea.get_overlapping_bodies():
+		if not truppa in MapArea.get_overlapping_bodies() and truppa.Initialize and not FileFunctions.IsBuilding:
 			truppa.Invert = not truppa.Invert
 	await get_tree().create_timer(10).timeout

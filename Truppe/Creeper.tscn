@@ -8,3 +8,5 @@ script = ExtResource("1_3hjq6")
 texture = ExtResource("2_l5thq")
 HP = 150
 Speed = 350.0
+Costo = 3
+Name = "Pazzo suicida"
