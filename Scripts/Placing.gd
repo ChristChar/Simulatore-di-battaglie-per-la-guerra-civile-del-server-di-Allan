@@ -36,5 +36,9 @@ func _process(delta):
 				NewTruppa.SquadraRossa = global_position.x >= 0
 				NewTruppa.global_position = global_position
 				Eserito.add_child(NewTruppa)
+				if NewTruppa.SquadraRossa:
+					get_parent().RedTeamMoney += Data.Costo
+				else:
+					get_parent().BlueTeamMoney += Data.Costo
 	else:
 		visible = false

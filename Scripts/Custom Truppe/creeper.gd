@@ -20,17 +20,24 @@ func _ready():
 	Explosion_Audio.stream = Explosion_sound
 	Explosion_Audio.connect("finished", DIE)
 	add_child(Explosion_Audio)
-	
-	
+
 func DIE():
-	queue_free()
+	super.DIE()
+	Explosion_particles.emitting = false
+	Is_Exploding = false  # Resetta lo stato dell'esplosione
+	Exploding = 0.0  # Resetta il tempo dell'esplosione
+	Already_exploded.clear()  # Rimuove i nemici già esplosi
+	Explosion_particles.emitting = false  # Ferma le particelle
+	Explosion_Audio.stop()  # Ferma l'
 
 func _process(delta):
+	if FileFunctions.IsBuilding or Death:
+		return
 	if Is_Exploding:
 		velocity = Vector2.ZERO
 		for body in Area.get_overlapping_bodies():
 			if body is Truppa and body != self and not body in Already_exploded:
-				body.HP -= Exploding_damage
+				body.Current_HP -= Exploding_damage
 				body.velocity += global_position.direction_to(body.global_position) * Exploding_knockback
 				Already_exploded.append(body)
 	else:

@@ -1,17 +1,7 @@
 extends CharacterBody2D
 class_name Truppa
 
-var Progress: ProgressBar
-var Target: Truppa
-var Attack_countdown = 0.0
-var Area: Area2D
-var HPPivot: Node2D
-var Direction = 0
-var raycasts: Array[RayCast2D] = []
-var Invert = false
-var Initialize = false
-
-@export_enum("Insegui", "Fermo", "Avanti", "Casuale") var Movment_when_terget: String = "Insegui"
+@export_enum("Insegui", "Fermo", "Avanti", "Casuale", "Scappa") var Movment_when_terget: String = "Insegui"
 @export_enum("Fermo", "Avanti", "Casuale") var Movment_when_not_terget: String = "Avanti"
 @export var texture: Texture2D
 @export var HP: int
@@ -22,11 +12,28 @@ var Initialize = false
 @export var Costo: int = 1
 @export var Name: String = "E"
 
+var Progress: ProgressBar
+var Collision := CollisionShape2D.new()
+var Target: Truppa
+var Attack_countdown = 0.0
+var Area: Area2D
+var HPPivot: Node2D
+var Sprite := Sprite2D.new()
+var Direction = 0
+var raycasts: Array[RayCast2D] = []
+var Invert = false
+var Initialize = false
+var IsMouseIn = false
+var Death = false
+var Current_HP: int
+var Original_Position: Vector2
+
 func _ready():
 	randomize()
+	Current_HP = HP
+	Original_Position = global_position
 	add_to_group("Truppa")
 	var Size = texture.get_size()
-	var Sprite = Sprite2D.new()
 	Sprite.texture = texture
 	add_child(Sprite)
 	Progress = ProgressBar.new()
@@ -36,7 +43,9 @@ func _ready():
 		Progress.modulate = Color(1, 0, 0)
 		Direction = deg_to_rad(180)
 		rotation = deg_to_rad(180)
+		Sprite.flip_v = true
 		name = "Rosso"
+		Invert = true
 	else:
 		Progress.modulate = Color(0, 0.5, 1)
 		name = "Blu"
@@ -48,7 +57,6 @@ func _ready():
 	add_child(HPPivot)
 	var Shape = RectangleShape2D.new()
 	Shape.size = Size
-	var Collision = CollisionShape2D.new()
 	Collision.shape = Shape
 	Area = Area2D.new()
 	var AreaCollision = CollisionShape2D.new()
@@ -73,15 +81,21 @@ func _ready():
 	if not SquadraRossa:
 		Direction = 0
 		rotation = 0
-	Progress.value = HP
+	Progress.value = Current_HP
 	HPPivot.global_rotation = 0
 	Find_Target()
+	AreaConnect()
 	Initialize = true
-	Area.connect("input_event", _on_Area_input_event)
 
-func _on_Area_input_event(viewport, event, shape_idx):
-	if FileFunctions.IsBuilding and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-		queue_free()
+func AreaConnect():
+	Area.connect("mouse_entered", mouse_entered)
+	Area.connect("mouse_exited", mouse_exited)
+
+func mouse_entered():
+	IsMouseIn = true
+
+func mouse_exited():
+	IsMouseIn = false
 
 func Find_Target():
 	# Trova tutte le truppe nemiche valide
@@ -107,18 +121,44 @@ func _sort_by_distance_and_hp(a: Truppa, b: Truppa) -> int:
 	
 	if dist_a != dist_b:
 		return dist_a < dist_b  # Priorità al nemico più vicino
-	return a.HP < b.HP  # Se le distanze sono uguali, priorità al nemico con meno HP
+	return a.Current_HP < b.Current_HP  # Se le distanze sono uguali, priorità al nemico con meno HP
+
+func DIE():
+	visible = false
+	Death = true
+	global_position = Vector2(9999999,9999999)
+
+func Reset():
+	global_position = Original_Position
+	HPPivot.global_rotation = 0
+	visible = true
+	Death = false
+	Current_HP = HP
+	Progress.value = Current_HP
+	if SquadraRossa:
+		Direction = deg_to_rad(180)
+		rotation = deg_to_rad(180)
+	else:
+		Direction = 0
+		rotation = 0
 
 func _process(delta):
+	if Death:
+		return
 	if FileFunctions.IsBuilding:
-		pass
+		if IsMouseIn and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+			queue_free()
+			if SquadraRossa:
+				get_tree().get_first_node_in_group("World").RedTeamMoney -= Costo
+			else:
+				get_tree().get_first_node_in_group("World").BlueTeamMoney -= Costo
 	else:
-		Progress.value = HP
+		Progress.value = Current_HP
 		HPPivot.global_rotation = 0
 		Attack_countdown -= delta
 		
-		if HP <= 0:
-			queue_free()
+		if Current_HP <= 0:
+			DIE()
 		
 		if Is_target_valid():
 			Direction = global_position.angle_to_point(Target.global_position)
@@ -146,14 +186,14 @@ func angle_to_vector(angle: float) -> Vector2:
 
 func Attack(Target: Truppa):
 	if Attack_countdown <= 0:
-		Target.HP -= arma.Damage
+		Target.Current_HP -= arma.Damage
 		Attack_countdown = arma.Countdown + randf_range(-0.3,0.3)
 
 func Is_target_valid() -> bool:
 	return Target and is_instance_valid(Target) and global_position.distance_to(Target.global_position) <= vision_range
 
 func _physics_process(delta):
-	if FileFunctions.IsBuilding:
+	if FileFunctions.IsBuilding or Death:
 		return
 	if Is_target_valid():
 		Move(Movment_when_terget, delta)
@@ -179,13 +219,6 @@ func Raycast_check() -> Vector2:
 	
 	return Vector2.ZERO
 
-#func _draw():
-	#for raycast in raycasts:
-		#if raycast.is_colliding():
-			#draw_line(raycast.global_position, raycast.get_collision_point(), Color(0,1,0))
-		#else:
-			#draw_line(raycast.global_position, raycast.global_position + raycast.target_position, Color(1,0,0))
-
 func Move(Move_type: String, delta: float):
 	match Move_type:
 		"Insegui":
@@ -196,15 +229,21 @@ func Move(Move_type: String, delta: float):
 				velocity = (direction + raycast_result).normalized() * Speed
 			else:
 				velocity = direction * Speed
+		"Scappa":
+			var direction = Target.global_position - global_position
+			direction = -direction.normalized()
+			var raycast_result = Raycast_check()
+			if raycast_result != Vector2.ZERO:
+				velocity = (direction + raycast_result).normalized() * Speed
+			else:
+				velocity = direction * Speed
 		"Avanti":
-			Direction = deg_to_rad(180) if SquadraRossa else 0
-			if Invert:
-				Direction -= deg_to_rad(180)
+			Direction = deg_to_rad(180) if Invert else 0
 			var raycast_result = Raycast_check()
 			velocity = (angle_to_vector(Direction) + raycast_result).normalized() * Speed
 		"Casuale":
 			if randf() < delta:
-				Direction += randf_range(-0.2, 0.2)
+				Direction += randf_range(-2, 2)
 			var raycast_result = Raycast_check()
 			velocity = (angle_to_vector(Direction) + raycast_result).normalized() * Speed
 		"Fermo":

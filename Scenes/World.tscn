@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnycbiem36d63"]
+[gd_scene load_steps=13 format=3 uid="uid://dnycbiem36d63"]
 
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="1_7yndk"]
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_v3yrc"]
@@ -17,6 +17,12 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_tnphp"]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_sdsrj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5gl4"]
+bg_color = Color(0, 0.5, 1, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqihn"]
+bg_color = Color(1, 0, 0, 0.8)
 
 [node name="Node2D" type="Node2D" groups=["World"]]
 script = ExtResource("1_v3yrc")
@@ -96,6 +102,28 @@ theme_override_font_sizes/font_size = 80
 text = "CLEAR
 "
 script = ExtResource("6_yvshh")
+
+[node name="BlueTeamCount" type="Label" parent="CanvasLayer"]
+offset_left = 45.0
+offset_top = 645.0
+offset_right = 361.0
+offset_bottom = 795.0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_u5gl4")
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RedTeamCount" type="Label" parent="CanvasLayer"]
+offset_left = 1518.0
+offset_top = 645.0
+offset_right = 1834.0
+offset_bottom = 795.0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_tqihn")
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Place" type="Area2D" parent="." node_paths=PackedStringArray("Eserito")]
 script = ExtResource("7_crcan")

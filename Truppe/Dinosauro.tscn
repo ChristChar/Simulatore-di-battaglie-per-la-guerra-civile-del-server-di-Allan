@@ -16,5 +16,5 @@ texture = ExtResource("2_wjxjn")
 HP = 500
 Speed = 310.0
 arma = SubResource("Resource_hnsb0")
-Costo = 8
+Costo = 12
 Name = "T-rex"

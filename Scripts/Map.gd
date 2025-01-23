@@ -27,6 +27,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	for truppa in get_tree().get_nodes_in_group("Truppa"):
-		if not truppa in MapArea.get_overlapping_bodies() and truppa.Initialize and not FileFunctions.IsBuilding:
-			truppa.Invert = not truppa.Invert
+		if truppa.Initialize and not FileFunctions.IsBuilding and not truppa.Death:
+			if truppa.global_position.x <= -X_size * 32:
+				truppa.Invert = false
+			elif  truppa.global_position.x >= X_size * 32:
+				truppa.Invert = true
 	await get_tree().create_timer(10).timeout

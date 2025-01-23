@@ -9,6 +9,7 @@ var Not_valid_guys: Array[Truppa] = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	add_to_group("Bullet")
 	var Shape = RectangleShape2D.new()
 	Shape.size = data.Size
 	var Collision = CollisionShape2D.new()
@@ -25,9 +26,9 @@ func _ready():
 func _process(delta):
 	for body in get_overlapping_bodies():
 		if body is Truppa:
-			if is_instance_valid(body):
+			if is_instance_valid(body) and not body.Death:
 				if body.SquadraRossa != Owner and not body in Not_valid_guys:
-					body.HP -= data.Damage
+					body.Current_HP -= data.Damage
 					Penetraione -= 1
 					Not_valid_guys.append(body)
 					if Penetraione <= 0:

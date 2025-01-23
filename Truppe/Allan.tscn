@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4gdqklvpcij4"]
+
+[ext_resource type="Script" path="res://Scripts/Custom Truppe/allan.gd" id="1_iysf4"]
+[ext_resource type="Texture2D" uid="uid://dc0p2p43ccewq" path="res://Resources/Images/Allan.png" id="2_uxkv3"]
+[ext_resource type="Script" path="res://Scripts/Resource/Bullet.gd" id="3_occb0"]
+[ext_resource type="Script" path="res://Scripts/Resource/Arma.gd" id="4_y4qf7"]
+
+[sub_resource type="Resource" id="Resource_uxbl0"]
+script = ExtResource("3_occb0")
+color = Color(0, 0.462885, 1.05888e-06, 1)
+speed = 1000
+Size = Vector2(15, 10)
+Damage = 15
+Penetraione = 2
+
+[sub_resource type="Resource" id="Resource_tmhfg"]
+script = ExtResource("4_y4qf7")
+Type = "Distanza"
+Damage = 30
+Countdown = 0.5
+bullet = SubResource("Resource_uxbl0")
+
+[node name="Truppa" type="CharacterBody2D"]
+script = ExtResource("1_iysf4")
+Movment_when_terget = "Casuale"
+texture = ExtResource("2_uxkv3")
+HP = 1500
+Speed = 500.0
+arma = SubResource("Resource_tmhfg")
+vision_range = 5000.0
+Costo = 50
+Name = "Allan"
